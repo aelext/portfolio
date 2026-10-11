@@ -66,7 +66,7 @@ export const EDUCATION: EducationEntry[] = [
     school: 'University of California, Los Angeles',
     degree: 'B.S. Computational Mathematics',
     graduation: '2026 – Present',
-    courses: ['COM SCI 31: Introduction to Computer Science', 'MATH 61: Introduction to Discrete Structures', 'Linear Algebra'],
+    courses: ['Introduction to Computer Science', 'Introduction to Discrete Structures', 'Linear Algebra'],
   },
   {
     school: 'Amador Valley High School',
