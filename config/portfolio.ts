@@ -43,8 +43,8 @@ export const NAV_LINKS = [
 
 export const HERO = {
   greeting: "Hi, I'm",
-  taglines: ['UCLA Computational Mathematics Student', 'Optimization & Modeling Researcher', 'Builder of Local AI Tools'] as string[],
-  bio: 'I’m a Computational Mathematics student at UCLA exploring optimization, AI, and mathematical models of complex systems, with work spanning conservation, robotics, and biology.',
+  taglines: ['UCLA Computational Mathematics Student', 'Optimization & Modeling Researcher', 'Hobbyist Developer'] as string[],
+  bio: 'I’m a Computational Mathematics student at UCLA exploring optimization, AI, and mathematical models, with work spanning conservation, robotics, and biology.',
   photo: undefined as string | undefined,
   ctas: [
     { label: 'Explore my work →', href: '#projects', primary: true },
@@ -70,7 +70,7 @@ export const EDUCATION: EducationEntry[] = [
   },
   {
     school: 'Amador Valley High School',
-    degree: 'Valedictorian · 1 of 641',
+    degree: 'Valedictorian · 1 of 646',
     gpa: 'Unweighted 3.98 · Weighted 4.70',
     graduation: '2022 – 2026',
     courses: [],
