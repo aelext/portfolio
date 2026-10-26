@@ -45,7 +45,7 @@ export const HERO = {
   greeting: "Hi, I'm",
   taglines: ['UCLA Computational Mathematics Student', 'Optimization & Modeling Researcher', 'Hobbyist Developer'] as string[],
   bio: 'I’m a Computational Mathematics student at UCLA exploring optimization, AI, and mathematical models, with work spanning conservation, robotics, and biology.',
-  photo: undefined as string | undefined,
+  photo: '/portrait.png',
   ctas: [
     { label: 'Explore my work →', href: '#projects', primary: true },
     { label: 'Get in touch', href: '#contact', primary: false },
