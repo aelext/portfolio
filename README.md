@@ -1,13 +1,13 @@
 # Alex Tang — Personal Portfolio
 
-My personal website. I'm a Mathematics of Computation student at UCLA (B.S., expected 2029) working on optimization, mathematical modeling, embedded ML, and competitive programming.
+My personal website. I'm a Computational Mathematics student at UCLA (B.S., expected 2029) working on optimization, mathematical modeling, embedded ML, and competitive programming.
 
 **What's on the site**
 
 - **Experience & Leadership** — education, research (UCSB SRA, UC Davis COSMOS), tutoring, and leadership (Funding Lead at Bruin Software Engineers, Co-President of Music4America, Codeforces Expert / USACO Gold)
 - **Projects** — BLE wearable step counter with on-device TinyML, e-sports predictive analytics (DataRes), a local RAG system, an integer-programming model for anti-poaching ranger routes, and NeuroPass (Toshiba ExploraVision Honorable Mention)
-- **Toolkit** — languages and tools I use
-- **Contact** — email, GitHub, LinkedIn, and a downloadable résumé
+- **Skills & Highlights** — Codeforces / USACO, valedictorian, Music4America fundraising, plus the languages and tools I use
+- **Contact** — email, GitHub, LinkedIn, and a downloadable resume
 
 ## Built with
 
@@ -39,9 +39,9 @@ Almost everything lives in two config files, so I rarely need to touch component
 
 | File | What it controls |
 |---|---|
-| `config/portfolio.ts` | Name, links, hero text and stats, education, experience, projects, skills, contact, footer |
+| `config/portfolio.ts` | Name, links, hero text, highlights, education, experience, projects, skills, contact, footer |
 | `config/design.ts` | Colors (light + dark), hero animations, which sections are shown, section headings |
-| `public/resume.pdf` | The résumé linked from the hero, contact section, and footer |
+| `public/resume.pdf` | The resume linked from the hero, contact section, and footer |
 | `public/portrait.png` | Hero photo |
 
 A few notes:

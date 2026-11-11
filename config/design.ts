@@ -81,8 +81,10 @@ export const LABELS = {
   },
   skills: {
     nav: 'Skills',
-    heading: 'Toolkit',
+    heading: 'Skills & Highlights',
   },
+  highlights: 'Highlights',
+  toolkit: 'Toolkit',
   contact: {
     nav: 'Contact',
     heading: "Let's talk",

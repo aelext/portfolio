@@ -4,7 +4,7 @@ import { SECTIONS, LABELS } from './design';
 export const ME = {
   firstName: 'Alex',
   lastName: 'Tang',
-  role: 'Mathematics of Computation Student at UCLA',
+  role: 'Computational Mathematics Student at UCLA',
   email: 'yalext08@ucla.edu',
   phone: '925-596-5967',
   github: 'aelext',
@@ -33,7 +33,7 @@ export const SITE = {
   title: `${PERSON.fullName} | ${PERSON.role}`,
   titleSuffix: `| ${PERSON.fullName}`,
   description:
-    'Alex Tang is a UCLA Mathematics of Computation student working on optimization, mathematical modeling, embedded ML, and competitive programming.',
+    'Alex Tang is a UCLA Computational Mathematics student working on optimization, mathematical modeling, embedded ML, and competitive programming.',
 };
 
 export const NAV_LINKS = [
@@ -46,24 +46,17 @@ export const NAV_LINKS = [
 export const HERO = {
   greeting: "Hi, I'm",
   taglines: [
-    'Mathematics of Computation @ UCLA',
+    'Computational Mathematics @ UCLA',
     'Optimization & Modeling',
     'Codeforces Expert · 1726',
     'Embedded ML Tinkerer',
   ] as string[],
-  bio: 'I’m a Mathematics of Computation student at UCLA who likes turning math into working systems — from integer programs that route park rangers to a TinyML step counter streaming over Bluetooth.',
+  bio: 'Computational Mathematics student at UCLA. I build optimization models, ML projects, and embedded systems.',
   photo: '/portrait.png',
   status: 'Seeking Summer 2027 SWE / research internships',
   ctas: [
     { label: 'Explore my work →', href: '#projects', primary: true },
-    { label: 'Download résumé', href: ME.resumePath, primary: false },
-  ],
-  // Small highlight tiles under the hero text. Set to [] to hide.
-  stats: [
-    { value: '1726', label: 'Codeforces · Expert' },
-    { value: 'Gold', label: 'USACO division' },
-    { value: '1 / 641', label: 'Valedictorian' },
-    { value: '$6K+', label: 'Raised for music ed' },
+    { label: 'Download resume', href: ME.resumePath, primary: false },
   ],
 };
 
@@ -79,7 +72,7 @@ export interface EducationEntry {
 export const EDUCATION: EducationEntry[] = [
   {
     school: 'University of California, Los Angeles',
-    degree: 'B.S. Mathematics of Computation',
+    degree: 'B.S. Computational Mathematics',
     graduation: 'Expected Jun 2029',
     courses: ['Introduction to Computer Science', 'Introduction to Discrete Structures'],
   },
@@ -259,6 +252,20 @@ export const PROJECTS: ProjectEntry[] = [
     tech: ['AI', 'Ultrasound', 'Biomedical'],
     featured: false,
   },
+];
+
+export interface Highlight {
+  value: string;
+  label: string;
+  detail: string;
+}
+
+// Shown as tiles in the Skills & Highlights section. Set to [] to hide.
+export const HIGHLIGHTS: Highlight[] = [
+  { value: '1726', label: 'Codeforces Expert', detail: 'Competitive programming rating' },
+  { value: 'Gold', label: 'USACO Division', detail: 'Promoted in 2025' },
+  { value: '1 / 641', label: 'Valedictorian', detail: 'Amador Valley High School' },
+  { value: '$6K+', label: 'Raised for music ed', detail: 'As Music4America Co-President' },
 ];
 
 export interface SkillGroup {

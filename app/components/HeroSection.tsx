@@ -140,17 +140,6 @@ export function HeroSection() {
               </Link>
             ))}
           </div>
-
-          {HERO.stats.length > 0 && (
-            <dl className="hero-stats">
-              {HERO.stats.map((s) => (
-                <div key={s.label} className="hero-stat">
-                  <dt className="hero-stat-label">{s.label}</dt>
-                  <dd className="hero-stat-value">{s.value}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
         </div>
 
         {showPhoto && (
