@@ -7,7 +7,6 @@ import { HERO_DESIGN } from '@/config/design';
 
 const initials = `${PERSON.firstName[0]}${PERSON.lastName[0]}`.toUpperCase();
 
-
 // Positions along the axis perpendicular to travel direction
 const SPREAD = ['5%','12%','20%','28%','35%','42%','50%','57%','64%','71%','78%','85%','91%','8%','58%'];
 const DELAYS  = ['0s','2.1s','0.5s','3.8s','1.2s','4.5s','0.9s','2.7s','5.1s','1.6s','3.3s','0.3s','4.0s','6.2s','2.4s'];
@@ -29,10 +28,9 @@ function hexPoints(size: number): string {
   ].map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
 }
 
-
 export function HeroSection() {
   const taglines  = HERO.taglines;
-  const { typing, particles, showPhoto } = HERO_DESIGN;
+  const { typing, particles, showPhoto, hexGrid } = HERO_DESIGN;
   const dir = particles.direction;
 
   const [displayed, setDisplayed] = useState(typing.enabled ? '' : taglines[0]);
@@ -61,18 +59,26 @@ export function HeroSection() {
         const id = setTimeout(() => setDisplayed((d) => d.slice(0, -1)), typing.deleteSpeed);
         return () => clearTimeout(id);
       } else {
-        setIndex((i) => (i + 1) % taglines.length);
-        setPhase('typing');
+        const id = setTimeout(() => {
+          setIndex((i) => (i + 1) % taglines.length);
+          setPhase('typing');
+        }, 0);
+        return () => clearTimeout(id);
       }
     }
   }, [displayed, phase, index, taglines, typing]);
 
-  // Map direction to CSS animation name and which axis to spread across
   const animName = `hexDrift-${dir}`;
   const isVertical = dir === 'up' || dir === 'down';
 
   return (
     <section className="hero" aria-label="Introduction">
+      {hexGrid && (
+        <>
+          <div className="hero-glow" aria-hidden="true" />
+          <div className="hero-hexgrid" aria-hidden="true" />
+        </>
+      )}
 
       {/* Floating hex particles */}
       {particles.enabled && (
@@ -87,11 +93,7 @@ export function HeroSection() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               style={{
-                // Spread perpendicular to direction of travel
-                ...(isVertical
-                  ? { left: SPREAD[i] }
-                  : { top: SPREAD[i] }),
-                // Start position: opposite edge from travel direction
+                ...(isVertical ? { left: SPREAD[i] } : { top: SPREAD[i] }),
                 ...(dir === 'up'    && { bottom: '-80px' }),
                 ...(dir === 'down'  && { top: '-80px' }),
                 ...(dir === 'left'  && { right: '-80px' }),
@@ -111,13 +113,20 @@ export function HeroSection() {
 
       <div className="hero-inner">
         <div className="hero-text">
+          {HERO.status && (
+            <p className="hero-status">
+              <span className="hero-status-dot" aria-hidden="true" />
+              {HERO.status}
+            </p>
+          )}
           <h1 className="hero-heading">
             {HERO.greeting}{' '}
             <span className="hero-name">{PERSON.fullName}</span>
           </h1>
           <p className="hero-role">
+            <span className="hero-role-prompt" aria-hidden="true">$ </span>
             {displayed}
-            {typing.enabled && <span className="hero-cursor" aria-hidden="true">|</span>}
+            {typing.enabled && <span className="hero-cursor" aria-hidden="true">▍</span>}
           </p>
           <p className="hero-sub">{HERO.bio}</p>
           <div className="hero-ctas">
@@ -131,10 +140,22 @@ export function HeroSection() {
               </Link>
             ))}
           </div>
+
+          {HERO.stats.length > 0 && (
+            <dl className="hero-stats">
+              {HERO.stats.map((s) => (
+                <div key={s.label} className="hero-stat">
+                  <dt className="hero-stat-label">{s.label}</dt>
+                  <dd className="hero-stat-value">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
 
         {showPhoto && (
           <div className="hero-photo" aria-hidden="true">
+            <div className="hex-orbit" />
             <div className="hex-photo-wrapper">
               <div className="hex-photo-inner">
                 {HERO.photo ? (
@@ -149,6 +170,9 @@ export function HeroSection() {
         )}
       </div>
 
+      <a href="#experience" className="scroll-cue" aria-label="Scroll to content">
+        <span />
+      </a>
     </section>
   );
 }

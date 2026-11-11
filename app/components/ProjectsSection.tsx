@@ -1,6 +1,7 @@
 import { PROJECTS } from '@/config/portfolio';
 import { LABELS } from '@/config/design';
 import { ScrollReveal } from './ScrollReveal';
+import { SectionHeader } from './SectionHeader';
 
 function GitHubIcon() {
   return (
@@ -20,19 +21,23 @@ function ExternalLinkIcon() {
   );
 }
 
-export function ProjectsSection() {
+export function ProjectsSection({ index = 2 }: { index?: number }) {
   return (
     <section id="projects" className="portfolio-section">
-      <ScrollReveal>
-        <div className="section-header">
-          <span className="section-label">{LABELS.projects.heading}</span>
-        </div>
-      </ScrollReveal>
+      <SectionHeader index={index} eyebrow={LABELS.projects.nav} title={LABELS.projects.heading} />
       <div className="projects-grid">
         {PROJECTS.map((project, i) => (
-          <ScrollReveal key={project.name} delay={i * 70}>
-            <div className="project-card" data-featured={project.featured}>
-              <p className="project-name">{project.name}</p>
+          <ScrollReveal key={project.name} delay={i * 70} className="project-reveal">
+            <article className="project-card" data-featured={project.featured}>
+              <div className="project-top">
+                <span className="project-index">{String(i + 1).padStart(2, '0')}</span>
+                {project.inProgress && <span className="project-status">In progress</span>}
+                {!project.inProgress && project.period && (
+                  <span className="project-period">{project.period}</span>
+                )}
+              </div>
+              {project.org && <p className="project-org">{project.org}</p>}
+              <h3 className="project-name">{project.name}</h3>
               <p className="project-desc">{project.description}</p>
               {project.tech.length > 0 && (
                 <div className="tech-pill-row">
@@ -69,7 +74,7 @@ export function ProjectsSection() {
                   )}
                 </div>
               )}
-            </div>
+            </article>
           </ScrollReveal>
         ))}
       </div>

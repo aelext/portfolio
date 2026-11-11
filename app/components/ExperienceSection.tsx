@@ -1,40 +1,52 @@
-import { EXPERIENCE, EDUCATION } from '@/config/portfolio';
+import { EXPERIENCE, EDUCATION, type ExperienceEntry } from '@/config/portfolio';
 import { LABELS, SECTIONS } from '@/config/design';
 import { ScrollReveal } from './ScrollReveal';
+import { SectionHeader } from './SectionHeader';
 
-function WorkBlock() {
+function dateRange(start: string, end: string) {
+  return start === end ? start : `${start} – ${end}`;
+}
+
+function Timeline({ label, entries }: { label: string; entries: ExperienceEntry[] }) {
+  if (entries.length === 0) return null;
   return (
     <div>
-      <p className="exp-sub-label">{LABELS.work}</p>
-      <div className="exp-list">
-        {EXPERIENCE.map((entry, i) => (
-          <ScrollReveal key={i} delay={i * 80}>
-            <div className="exp-card">
-              <div className="exp-meta">
-                <div className="exp-meta-left">
-                  <p className="exp-role">{entry.role}</p>
-                  <p className="exp-company">{entry.company}{entry.location && <> &middot; {entry.location}</>}</p>
+      <p className="exp-sub-label">{label}</p>
+      <ol className="timeline">
+        {entries.map((entry, i) => (
+          <li key={`${entry.company}-${entry.role}`} className="timeline-item">
+            <span className="timeline-node" aria-hidden="true" />
+            <ScrollReveal delay={i * 70}>
+              <div className="exp-card">
+                <div className="exp-meta">
+                  <div className="exp-meta-left">
+                    <p className="exp-role">{entry.role}</p>
+                    <p className="exp-company">
+                      {entry.company}
+                      {entry.location && <span className="exp-location"> · {entry.location}</span>}
+                    </p>
+                  </div>
+                  <span className="exp-dates">{dateRange(entry.start, entry.end)}</span>
                 </div>
-                <span className="exp-dates">{entry.start} – {entry.end}</span>
+                {entry.bullets.length > 0 && (
+                  <ul className="exp-bullets">
+                    {entry.bullets.map((bullet, j) => (
+                      <li key={j}>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
+                {entry.tech.length > 0 && (
+                  <div className="tech-pill-row">
+                    {entry.tech.map((t) => (
+                      <span key={t} className="tech-pill">{t}</span>
+                    ))}
+                  </div>
+                )}
               </div>
-              {entry.bullets.length > 0 && (
-                <ul className="exp-bullets">
-                  {entry.bullets.map((bullet, j) => (
-                    <li key={j}>{bullet}</li>
-                  ))}
-                </ul>
-              )}
-              {entry.tech.length > 0 && (
-                <div className="tech-pill-row">
-                  {entry.tech.map((t) => (
-                    <span key={t} className="tech-pill">{t}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   );
 }
@@ -43,19 +55,17 @@ function EducationBlock() {
   return (
     <div>
       <p className="exp-sub-label">{LABELS.education}</p>
-      <div className="exp-list">
+      <div className="edu-grid">
         {EDUCATION.map((entry, i) => (
-          <ScrollReveal key={i} delay={i * 80}>
-            <div className="exp-card">
-              <div className="exp-meta">
-                <div className="exp-meta-left">
-                  <p className="exp-role">{entry.school}</p>
-                  <p className="exp-company">{entry.degree}{entry.minor && ` · Minor in ${entry.minor}`}</p>
-                </div>
-                <span className="exp-dates">
-                  {entry.gpa && <>{entry.gpa} &middot; </>}{entry.graduation}
-                </span>
-              </div>
+          <ScrollReveal key={entry.school} delay={i * 80}>
+            <div className="exp-card edu-card">
+              <span className="exp-dates">{entry.graduation}</span>
+              <p className="exp-role">{entry.school}</p>
+              <p className="exp-company">
+                {entry.degree}
+                {entry.minor && ` · Minor in ${entry.minor}`}
+              </p>
+              {entry.gpa && <p className="edu-gpa">GPA {entry.gpa}</p>}
               {entry.courses.length > 0 && (
                 <div className="tech-pill-row">
                   {entry.courses.map((c) => (
@@ -71,29 +81,19 @@ function EducationBlock() {
   );
 }
 
-export function ExperienceSection() {
-  const showEdu = SECTIONS.showEducation;
-  const eduFirst = SECTIONS.educationFirst;
+export function ExperienceSection({ index = 1 }: { index?: number }) {
+  const work = EXPERIENCE.filter((e) => e.group === 'work');
+  const leadership = EXPERIENCE.filter((e) => e.group === 'leadership');
+  const edu = SECTIONS.showEducation ? <EducationBlock /> : null;
 
   return (
     <section id="experience" className="portfolio-section">
-      <ScrollReveal>
-        <div className="section-header">
-          <span className="section-label">{LABELS.experience.heading}</span>
-        </div>
-      </ScrollReveal>
+      <SectionHeader index={index} eyebrow={LABELS.experience.nav} title={LABELS.experience.heading} />
       <div className="exp-blocks">
-        {eduFirst && showEdu ? (
-          <>
-            <EducationBlock />
-            <WorkBlock />
-          </>
-        ) : (
-          <>
-            <WorkBlock />
-            {showEdu && <EducationBlock />}
-          </>
-        )}
+        {SECTIONS.educationFirst && edu}
+        <Timeline label={LABELS.work} entries={work} />
+        <Timeline label={LABELS.leadership} entries={leadership} />
+        {!SECTIONS.educationFirst && edu}
       </div>
     </section>
   );

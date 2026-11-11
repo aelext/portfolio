@@ -6,7 +6,7 @@
 
    Fonts: change them in app/layout.tsx (search "Fonts — change them here").
    Next.js requires font names to be compile-time string literals, so they
-   can't live here — but a step-by-step guide is waiting for you there.
+   can't live here.
    ───────────────────────────────────────────────────────────────────── */
 
 // ── Theme ─────────────────────────────────────────────────────────────
@@ -19,17 +19,17 @@ export const THEME = {
   // Set to true to hide the theme toggle and lock the site to defaultMode
   disableToggle: false,
   // Browser-level zoom for the whole site (1 = default, 1.25 = 25% bigger)
-  scale: 1.25,
+  scale: 1.15,
   colors: {
     light: {
-      bg: '#f5f5f0',
-      primary: '#2d2dff',
-      accent: '#ff4000',
+      bg: '#f6f7fb',
+      primary: '#3b3bff',
+      accent: '#e8366b',
     },
     dark: {
-      bg: '#0d0d0d',
-      primary: '#00e5ff',
-      accent: '#ff4d6d',
+      bg: '#0a0c12',
+      primary: '#22d3ee',
+      accent: '#f472b6',
     },
   },
 };
@@ -38,11 +38,9 @@ export const THEME = {
 export const HERO_DESIGN = {
   // showPhoto: false removes the hex frame entirely (no initials, no image)
   showPhoto: true,
+  // Faint honeycomb pattern + glow behind the hero
+  hexGrid: true,
   // Typing animation for the tagline.
-  //   enabled:     false shows the first tagline as plain static text
-  //   typeSpeed:   ms per character typed   (lower = faster, default 65)
-  //   deleteSpeed: ms per character deleted (lower = faster, default 35)
-  //   pauseAfter:  ms to hold before deleting (default 1800)
   typing: {
     enabled: true,
     typeSpeed: 65,
@@ -50,42 +48,43 @@ export const HERO_DESIGN = {
     pauseAfter: 1800,
   },
   // Floating hex particle animation in the hero background.
-  //   enabled:   false to turn off entirely
-  //   direction: 'up' | 'down' | 'left' | 'right'
   particles: {
     enabled: true,
-    direction: 'down' as 'up' | 'down' | 'left' | 'right',
+    direction: 'up' as 'up' | 'down' | 'left' | 'right',
   },
 };
 
 // ── Section visibility ────────────────────────────────────────────────
 // Set any key to false to hide that section from the page and nav.
-// Your data in EDUCATION, EXPERIENCE, etc. is preserved — just hidden.
 export const SECTIONS = {
   experience: true,
   projects: true,
+  skills: true,
   contact: true,
   showEducation: true,   // show education block inside the Experience section
-  educationFirst: true,  // set true to show education above work experience
+  educationFirst: true,  // show education above work experience
 };
 
 // ── Section labels ────────────────────────────────────────────────────
-// Each section has a `nav` label (shown in the header nav) and a
-// `heading` label (shown as the large section title on the page).
-// Set them to the same string if you want them to match.
+// `nav` = header nav text, `heading` = large section title on the page.
 export const LABELS = {
   experience: {
     nav: 'Experience',
     heading: 'Experience & Leadership',
   },
-  work: 'Work, Leadership & Competition',   // sub-label inside the Experience section
-  education: "Where I've studied",  // sub-label inside the Experience section
+  work: 'Work & Research',
+  leadership: 'Leadership & Extracurriculars',
+  education: 'Education',
   projects: {
     nav: 'Projects',
-    heading: "What I've built",
+    heading: "Things I've built",
+  },
+  skills: {
+    nav: 'Skills',
+    heading: 'Toolkit',
   },
   contact: {
     nav: 'Contact',
-    heading: 'Get in touch',
+    heading: "Let's talk",
   },
 };

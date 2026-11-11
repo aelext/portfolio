@@ -1,180 +1,80 @@
-# pww-hex-template
+# Alex Tang — Personal Portfolio
 
-A config-driven personal portfolio with a hexagon/geometric aesthetic, dark neon palette, and zero repeated values — built with Next.js 16, React 19, and Tailwind CSS 4.
+My personal website. I'm a Mathematics of Computation student at UCLA (B.S., expected 2029) working on optimization, mathematical modeling, embedded ML, and competitive programming.
 
-## Features
+**What's on the site**
 
-- All content, colors, and toggles live in one file: `config/portfolio.ts`
-- Dark neon default (configurable) with animated hex-grid hero background
-- Hex-clipped profile photo with neon border, or monogram placeholder
-- Staggered honeycomb project grid
-- Neon glow hover effects on cards, buttons, and links
-- Show/hide any section without deleting data — nav updates automatically
-- Configurable color palette (both light and dark mode tokens)
-- Light/dark theme toggle with localStorage persistence and no flash on load
-- Boxy geometric UI: sharp corners, monospace labels, angular hero cut
-- Responsive — collapses gracefully to mobile
+- **Experience & Leadership** — education, research (UCSB SRA, UC Davis COSMOS), tutoring, and leadership (Funding Lead at Bruin Software Engineers, Co-President of Music4America, Codeforces Expert / USACO Gold)
+- **Projects** — BLE wearable step counter with on-device TinyML, e-sports predictive analytics (DataRes), a local RAG system, an integer-programming model for anti-poaching ranger routes, and NeuroPass (Toshiba ExploraVision Honorable Mention)
+- **Toolkit** — languages and tools I use
+- **Contact** — email, GitHub, LinkedIn, and a downloadable résumé
 
-## Tech Stack
+## Built with
 
-- Next.js 16 App Router
-- React 19
+- [Next.js 16](https://nextjs.org/) (App Router) + React 19
 - TypeScript
-- Tailwind CSS 4
+- Tailwind CSS 4 with a hand-written stylesheet (`app/globals.css`)
 - pnpm
 
-## Requirements
+The design is a dark, geometric "honeycomb" theme: hex-clipped portrait, a faint hex-grid backdrop, floating hex particles, and a light/dark toggle.
 
-- Node.js 20.9 or newer
-- pnpm
+## Running locally
 
-## Quick Start
+Requires Node.js 20.9+ and pnpm.
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev        # http://localhost:3000
 ```
-
-Open the URL printed in your terminal (usually `http://localhost:3000`).
 
 ```bash
-pnpm build   # production build
-pnpm start   # run the production server
+pnpm build      # production build
+pnpm start      # serve the production build
+pnpm lint
 ```
 
-## Customization
+## Updating content
 
-Everything is in [`config/portfolio.ts`](config/portfolio.ts). You never need to edit component files.
+Almost everything lives in two config files, so I rarely need to touch components:
 
-### Identity
+| File | What it controls |
+|---|---|
+| `config/portfolio.ts` | Name, links, hero text and stats, education, experience, projects, skills, contact, footer |
+| `config/design.ts` | Colors (light + dark), hero animations, which sections are shown, section headings |
+| `public/resume.pdf` | The résumé linked from the hero, contact section, and footer |
+| `public/portrait.png` | Hero photo |
 
-```ts
-export const ME = {
-  firstName:  'Your',
-  lastName:   'Name',
-  role:       'Software Engineer',
-  email:      'you@example.com',
-  github:     'yourusername',   // username only
-  linkedin:   'yourusername',   // username only
-  resumePath: '/resume.pdf',
-};
-```
+A few notes:
 
-Every URL, page title, footer link, and contact entry is derived from these fields automatically.
+- **Experience** entries have a `group` of `'work'` or `'leadership'`, which decides which timeline they appear in.
+- **Projects** marked `featured: true` get a wider card; `inProgress: true` shows an "In progress" badge. Add `github` or `live` URLs to show links.
+- **Colors**: only `bg`, `primary`, and `accent` are set per mode — the rest of the palette is derived in `lib/theme.ts`, which also warns at build time about low-contrast combinations.
+- **Fonts** are set in `app/layout.tsx` (DM Sans + JetBrains Mono).
 
-### Colors
-
-```ts
-export const THEME = {
-  defaultMode: 'dark',  // or 'light'
-  colors: {
-    dark:  { bg: '#0d0d0d', primary: '#00e5ff', accent: '#ff4d6d', ... },
-    light: { bg: '#f5f5f0', primary: '#2d2dff', accent: '#ff4000', ... },
-  },
-};
-```
-
-Changing any color token updates every element that uses it: cards, glow effects, hex photo border, nav, footer, and the OG image.
-
-### Show/Hide Sections
-
-```ts
-export const SECTIONS = {
-  experience: true,
-  projects:   true,
-  education:  false,  // hides section and removes it from the nav
-  contact:    true,
-};
-```
-
-### Section Heading Labels
-
-```ts
-export const LABELS = {
-  experience: "Where I've worked",
-  projects:   "Things I've built",
-  education:  "Where I studied",
-  contact:    "Get in touch",
-};
-```
-
-### Hero Photo
-
-Set `HERO.photo` to a path under `public/` to display your photo in a hex-clipped frame. Leave it `undefined` to show your initials as a placeholder.
-
-```ts
-export const HERO = {
-  photo: '/images/photo.jpg',   // place the file at public/images/photo.jpg
-  // or leave as: photo: undefined,
-};
-```
-
-### Adding Your Resume
-
-Place a PDF at `public/resume.pdf` (or the path you set in `ME.resumePath`). The "Download PDF" link in the contact section and the footer Resume link will point to it automatically.
-
-### Experience, Projects, Education
-
-Add or remove array entries in `EXPERIENCE`, `PROJECTS`, and `EDUCATION`. Each section renders however many items you provide.
-
-```ts
-export const PROJECTS: ProjectEntry[] = [
-  {
-    name:        'My Project',
-    description: 'What it does.',
-    tech:        ['Next.js', 'TypeScript'],
-    github:      'https://github.com/you/project',  // optional
-    live:        'https://project.com',              // optional
-    featured:    true,   // adds accent-colored border to the card
-  },
-];
-```
-
-### Fonts
-
-Fonts are hardcoded in [`app/layout.tsx`](app/layout.tsx) (a Next.js constraint — font names must be compile-time strings). The template uses **DM Sans** (body) and **JetBrains Mono** (mono). To change them, swap the `DM_Sans` / `JetBrains_Mono` imports in that file.
-
-## Project Structure
+## Project structure
 
 ```
 app/
-  components/
-    Header.tsx          Fixed nav with logo and theme toggle
-    HeroSection.tsx     Hex grid background, name, bio, CTAs, hex photo
-    ExperienceSection.tsx
-    ProjectsSection.tsx Staggered honeycomb grid
-    EducationSection.tsx
-    ContactSection.tsx
-    Footer.tsx
-    ThemeToggle.tsx     Sun/moon button
-  providers/
-    ThemeProvider.tsx   Client-side theme context
-  globals.css           All component styles (no hardcoded colors)
-  layout.tsx            Injects color tokens from config; font setup; metadata
-  page.tsx              Composes all sections
-  opengraph-image.tsx   Auto-generated OG image
+  components/      Header, Hero, Experience, Projects, Skills, Contact, Footer, …
+  providers/       Theme context
+  globals.css      All styles (colors come from CSS variables only)
+  layout.tsx       Fonts, metadata, theme tokens
+  page.tsx         Page composition and section numbering
+  opengraph-image.tsx
 config/
-  portfolio.ts          THE ONLY FILE TO EDIT
+  portfolio.ts     Content
+  design.ts        Visual settings
+lib/
+  theme.ts         Palette derivation
 public/
-  resume.pdf            Add your resume here
+  resume.pdf
+  portrait.png
 ```
-
-## Scripts
-
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start local dev server |
-| `pnpm build` | Build for production |
-| `pnpm start` | Run production server |
-| `pnpm lint` | Run ESLint |
 
 ## Deployment
 
-Vercel is the easiest target:
+Vercel works out of the box: import the repo and keep the default Next.js settings. On other hosts, set `NEXT_PUBLIC_SITE_URL` so Open Graph URLs resolve correctly.
 
-1. Push to GitHub.
-2. Import into Vercel.
-3. Keep the default Next.js settings.
-4. Deploy.
+## Contact
 
-The site URL is detected automatically on Vercel — no environment variables needed. For other hosts, set `NEXT_PUBLIC_SITE_URL` in your environment.
+[yalext08@ucla.edu](mailto:yalext08@ucla.edu) · [github.com/aelext](https://github.com/aelext) · [linkedin.com/in/yalext](https://www.linkedin.com/in/yalext/)

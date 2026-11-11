@@ -4,7 +4,7 @@ import { SECTIONS, LABELS } from './design';
 export const ME = {
   firstName: 'Alex',
   lastName: 'Tang',
-  role: 'Computational Mathematics Student at UCLA',
+  role: 'Mathematics of Computation Student at UCLA',
   email: 'yalext08@ucla.edu',
   phone: '925-596-5967',
   github: 'aelext',
@@ -32,23 +32,38 @@ export const SITE = {
   url: SITE_URL,
   title: `${PERSON.fullName} | ${PERSON.role}`,
   titleSuffix: `| ${PERSON.fullName}`,
-  description: 'Alex Tang is a UCLA Computational Mathematics student interested in optimization, AI, and mathematical modeling.',
+  description:
+    'Alex Tang is a UCLA Mathematics of Computation student working on optimization, mathematical modeling, embedded ML, and competitive programming.',
 };
 
 export const NAV_LINKS = [
   SECTIONS.experience && { label: LABELS.experience.nav, href: '#experience' },
   SECTIONS.projects && { label: LABELS.projects.nav, href: '#projects' },
+  SECTIONS.skills && { label: LABELS.skills.nav, href: '#skills' },
   SECTIONS.contact && { label: LABELS.contact.nav, href: '#contact' },
 ].filter(Boolean) as { label: string; href: string }[];
 
 export const HERO = {
   greeting: "Hi, I'm",
-  taglines: ['UCLA Computational Mathematics Student', 'Optimization & Modeling Researcher', 'Hobbyist Developer'] as string[],
-  bio: 'I’m a Computational Mathematics student at UCLA exploring optimization, AI, and mathematical models, with work spanning conservation, robotics, and biology.',
+  taglines: [
+    'Mathematics of Computation @ UCLA',
+    'Optimization & Modeling',
+    'Codeforces Expert · 1726',
+    'Embedded ML Tinkerer',
+  ] as string[],
+  bio: 'I’m a Mathematics of Computation student at UCLA who likes turning math into working systems — from integer programs that route park rangers to a TinyML step counter streaming over Bluetooth.',
   photo: '/portrait.png',
+  status: 'Seeking Summer 2027 SWE / research internships',
   ctas: [
     { label: 'Explore my work →', href: '#projects', primary: true },
-    { label: 'Get in touch', href: '#contact', primary: false },
+    { label: 'Download résumé', href: ME.resumePath, primary: false },
+  ],
+  // Small highlight tiles under the hero text. Set to [] to hide.
+  stats: [
+    { value: '1726', label: 'Codeforces · Expert' },
+    { value: 'Gold', label: 'USACO division' },
+    { value: '1 / 641', label: 'Valedictorian' },
+    { value: '$6K+', label: 'Raised for music ed' },
   ],
 };
 
@@ -64,15 +79,15 @@ export interface EducationEntry {
 export const EDUCATION: EducationEntry[] = [
   {
     school: 'University of California, Los Angeles',
-    degree: 'B.S. Computational Mathematics',
-    graduation: '2026 – Present',
-    courses: ['Introduction to Computer Science', 'Introduction to Discrete Structures', 'Linear Algebra'],
+    degree: 'B.S. Mathematics of Computation',
+    graduation: 'Expected Jun 2029',
+    courses: ['Introduction to Computer Science', 'Introduction to Discrete Structures'],
   },
   {
     school: 'Amador Valley High School',
-    degree: 'Valedictorian · 1 of 646',
-    gpa: 'Unweighted 3.98 · Weighted 4.70',
-    graduation: '2022 – 2026',
+    degree: 'Valedictorian · 1 of 641',
+    gpa: '4.70 W / 3.98 UW',
+    graduation: 'Aug 2022 – Jun 2026',
     courses: [],
   },
 ];
@@ -85,43 +100,86 @@ export interface ExperienceEntry {
   end: string;
   bullets: string[];
   tech: string[];
+  // 'work' = Work & Research, 'leadership' = Leadership & Extracurriculars
+  group: 'work' | 'leadership';
 }
 
 export const EXPERIENCE: ExperienceEntry[] = [
+  // ── Work & Research ────────────────────────────────────────────────
   {
-    company: 'Bruin Software Engineers (BSE)',
-    role: 'Health Tech in Hardware Track',
-    location: 'UCLA',
-    start: '2026',
-    end: 'Present',
-    bullets: [
-      'Collaborating on hardware-integrated health technology solutions within a student engineering team.',
-      'Bridging physical sensors and hardware components with software-driven data processing pipelines.',
-    ],
-    tech: ['Hardware', 'Health Technology', 'Software'],
+    company: 'Kumon',
+    role: 'English / Mathematics Tutor',
+    location: '',
+    start: 'Jul 2026',
+    end: 'Sep 2026',
+    bullets: ['Tutored 50+ students in advanced mathematics curricula up to calculus.'],
+    tech: ['Mathematics', 'Calculus', 'Teaching'],
+    group: 'work',
   },
   {
-    company: 'Kumon & Afficient Academy',
-    role: 'Mathematics Tutor',
+    company: 'SRA, UC Santa Barbara',
+    role: 'Complex Systems Research',
+    location: 'Santa Barbara, CA',
+    start: 'Jun 2025',
+    end: 'Jul 2025',
+    bullets: [
+      'Modeled the physical effects of network delay and packet loss on 3-DOF robotic arm operational accuracy.',
+      'Co-authored a research paper detailing the degradation thresholds of network latency.',
+    ],
+    tech: ['MATLAB', 'Simulink', 'Control Systems'],
+    group: 'work',
+  },
+  {
+    company: 'COSMOS, UC Davis',
+    role: 'Mathematical Modeling of Biological Systems',
+    location: 'Davis, CA',
+    start: 'Jul 2024',
+    end: 'Jul 2024',
+    bullets: [
+      'Created ODE models to simulate real-world phenomena in epidemiology, ecology, and physiology.',
+      'Developed a mathematical model simulating biomass diffusion across channel-like landscapes.',
+    ],
+    tech: ['R', 'ODEs', 'Mathematical Modeling'],
+    group: 'work',
+  },
+  {
+    company: 'Afficient Academy',
+    role: 'English / Mathematics Tutor',
     location: '',
-    start: '2024',
-    end: '2026',
-    bullets: ['Tutored more than 70 students in advanced mathematics curricula through calculus.'],
-    tech: ['Mathematics', 'Calculus'],
+    start: 'Apr 2024',
+    end: 'Jun 2024',
+    bullets: ['Tutored 20+ students in advanced mathematics curricula up to calculus.'],
+    tech: ['Mathematics', 'Calculus', 'Teaching'],
+    group: 'work',
+  },
+
+  // ── Leadership & Extracurriculars ──────────────────────────────────
+  {
+    company: 'Bruin Software Engineers (BSE)',
+    role: 'Funding Lead',
+    location: 'UCLA',
+    start: 'Nov 2026',
+    end: 'Present',
+    bullets: [
+      'Research and apply for UCLA and SOLE grants and manage corporate sponsor relationships.',
+      'Maintain the sponsorship packet and member resume book distributed to industry partners.',
+    ],
+    tech: ['Fundraising', 'Sponsorships', 'Operations'],
+    group: 'leadership',
   },
   {
     company: 'Music4America (M4A)',
-    role: 'Co-President · Member since 2019',
+    role: 'Co-President · Member 2019 – 2026',
     location: 'Pleasanton, CA',
     start: '2024',
     end: '2025',
     bullets: [
-      'Organized community events that raised more than $5,000 for local school district music programs.',
-      'Helped scale the nonprofit, nearly doubling membership from 127 to 244.',
-      'Coordinated and performed in more than 30 biweekly recitals at local senior centers and VA hospitals.',
-      'Taught fee-based math camps for middle school students, generating more than $1,000 in fundraising revenue.',
+      'Scaled non-profit operations, nearly doubling membership from 127 to 244 members.',
+      'Coordinated and performed in 30+ musical recitals at local senior centers and VA hospitals.',
+      'Directed community events and math camps, raising over $6,000 for local school music programs.',
     ],
-    tech: ['Community Leadership', 'Music', 'Mathematics'],
+    tech: ['Nonprofit Leadership', 'Cello', 'Community'],
+    group: 'leadership',
   },
   {
     company: 'Codeforces & USACO',
@@ -130,56 +188,89 @@ export const EXPERIENCE: ExperienceEntry[] = [
     start: '2024',
     end: 'Present',
     bullets: [
-      'Reached Codeforces Expert tier with a rating of 1726.',
-      'Promoted to USACO Gold division in 2025.',
-      'Qualified for the American Invitational Mathematics Examination (AIME) with a 121.5 on AMC 10A (top 5%).',
+      'Achieved a Codeforces rating of 1726 (Expert tier); promoted to USACO Gold division (2025).',
+      'American Invitational Mathematics Exam (AIME) qualifier — 121.5 on AMC 10A (top 5%).',
     ],
     tech: ['C++', 'Java', 'Algorithms'],
+    group: 'leadership',
   },
 ];
 
-export const CONTACT_BLURB = 'I’m interested in research and collaborations at the intersection of computation, optimization, and real-world systems. Feel free to reach out.';
+export const CONTACT_BLURB =
+  'I’m looking for Summer 2027 internships and research opportunities in software, optimization, and applied math. If you’re working on something interesting, I’d love to hear about it.';
 
 export interface ProjectEntry {
   name: string;
+  org?: string;      // shown as a small label above the name
+  period?: string;   // e.g. '2026 – Present'
   description: string;
   tech: string[];
   github?: string;
   live?: string;
   featured: boolean;
+  inProgress?: boolean;
 }
 
 export const PROJECTS: ProjectEntry[] = [
   {
+    name: 'BLE Wearable Step Counter',
+    org: 'Bruin Software Engineers',
+    period: '2026 – Present',
+    description:
+      'A wearable step counter in Arduino C++ that streams live step counts to a phone over a custom BLE service. Steps are detected with accelerometer thresholds and a 300 ms debounce, gated by an on-device TinyML model.',
+    tech: ['C++', 'Arduino', 'Edge Impulse', 'BLE'],
+    featured: true,
+    inProgress: true,
+  },
+  {
+    name: 'E-Sports Predictive Analytics',
+    org: 'DataRes',
+    period: '2026 – Present',
+    description:
+      'EDA on multiplayer match data to quantify the impact of spatial advantages and resources, then training ML models on how early-game momentum and player distributions predict final outcomes.',
+    tech: ['Python', 'R', 'Machine Learning'],
+    featured: true,
+    inProgress: true,
+  },
+  {
     name: 'Local RAG System',
-    description: 'Built a local Retrieval-Augmented Generation system with document embedding and querying. Used open-source LLMs such as Qwen3 to process data locally without external APIs.',
+    org: 'Independent Project',
+    period: '2026',
+    description:
+      'A local Retrieval-Augmented Generation system with document embedding and querying, running open-source LLMs like Qwen3 for local data processing without relying on external APIs.',
     tech: ['Python', 'ChromaDB', 'Ollama', 'Jupyter'],
-    featured: true,
+    featured: false,
   },
   {
-    name: 'Anti-Poaching Model',
-    description: 'Applied linear and integer programming to route park rangers through hotspots in Hell’s Gate National Park, Kenya. Built a MySQL database to query and store mathematical model constraints.',
+    name: 'Anti-Poaching Ranger Routing',
+    org: 'Independent Research',
+    period: '2023 – 2026',
+    description:
+      'Applied linear and integer programming to route park rangers through poaching hotspots in Hell’s Gate National Park, backed by a MySQL database that stores and queries the model’s constraint data.',
     tech: ['Python', 'OR-Tools', 'Gurobi', 'MySQL'],
-    featured: true,
-  },
-  {
-    name: 'Complex Systems Research · SRA, UC Santa Barbara',
-    description: 'Used dynamical systems, control theory, and optimization to study complex biological and engineered systems. Modeled the effects of network delay and packet loss on a 3-DOF robotic arm and co-authored a paper on latency degradation thresholds.',
-    tech: ['MATLAB', 'Simulink', 'Control Theory', 'Optimization'],
-    featured: true,
-  },
-  {
-    name: 'NeuroPass · Toshiba ExploraVision Honorable Mention',
-    description: 'Co-authored an AI- and ultrasound-guided quantum-dot drug delivery concept for multiple sclerosis treatment. Recognized with an Honorable Mention, placing in the top 10% of 15,000 entries.',
-    tech: ['AI', 'Ultrasound', 'Drug Delivery'],
     featured: false,
   },
   {
-    name: 'Mathematical Modeling of Biological Systems · COSMOS, UC Davis',
-    description: 'Created ODE models across probability, game theory, network theory, epidemiology, ecology, and physiology, including a model of biomass diffusion across a channel-like landscape.',
-    tech: ['R', 'ODEs', 'Mathematical Modeling'],
+    name: 'NeuroPass: Precision Therapy for MS',
+    org: 'Toshiba ExploraVision · Honorable Mention',
+    period: '2025',
+    description:
+      'Co-authored an AI- and ultrasound-guided quantum-dot drug delivery concept for Multiple Sclerosis, earning an Honorable Mention (top 10% of 15,000 entries).',
+    tech: ['AI', 'Ultrasound', 'Biomedical'],
     featured: false,
   },
+];
+
+export interface SkillGroup {
+  title: string;
+  items: string[];
+}
+
+export const SKILLS: SkillGroup[] = [
+  { title: 'Languages', items: ['Java', 'Python', 'C++', 'R', 'MATLAB'] },
+  { title: 'Optimization & Data', items: ['OR-Tools', 'Gurobi', 'MySQL', 'Jupyter'] },
+  { title: 'AI / ML', items: ['ChromaDB', 'Ollama', 'Edge Impulse (TinyML)'] },
+  { title: 'Hardware & Simulation', items: ['Arduino', 'Bluetooth LE', 'Simulink'] },
 ];
 
 export const SOCIAL_LINKS = [
@@ -201,15 +292,11 @@ export const CONTACT = {
 };
 
 export const FOOTER = {
-  tagline: 'Exploring optimization, AI, and mathematical modeling.',
+  tagline: 'Turning math into working systems — optimization, modeling, and embedded ML.',
   columns: [
     {
       heading: 'Portfolio',
-      links: [
-        SECTIONS.experience && { label: LABELS.experience.nav, href: '#experience' },
-        SECTIONS.projects && { label: LABELS.projects.nav, href: '#projects' },
-        SECTIONS.contact && { label: LABELS.contact.nav, href: '#contact' },
-      ].filter(Boolean) as { label: string; href: string }[],
+      links: NAV_LINKS,
     },
     {
       heading: 'Connect',
